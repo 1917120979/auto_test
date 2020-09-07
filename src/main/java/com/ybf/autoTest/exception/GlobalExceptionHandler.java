@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
-    public String defaultErrorHandler(HttpServletRequest request,Exception e){
+    public String defaultErrorHandler(HttpServletRequest request,Exception e) throws Exception{
         e.printStackTrace();
         return e.getMessage();
     }
