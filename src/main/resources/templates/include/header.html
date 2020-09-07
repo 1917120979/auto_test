@@ -1,4 +1,44 @@
-<template th:fragment="html(title)">
+<template th:fragment="html(title)" xmlns:th="http://www.w3.org/1999/XSL/Transform">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="favicon.ico" rel="shortcut icon">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/font.css" rel="stylesheet">
+
+    <script src="vendor/vue/2.5.16/vue.min.js"></script>
+    <script src="vendor/axios/0.17.1/axios.min.js"></script>
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+        function checkEmpty(value,text) {
+            if (null == value || value.length == 0){
+                alert(text+"不能为空");
+                return false;
+            }
+            return true;
+        }
+        
+        function getUrlParams(key) {
+            var search = location.search;
+            var paramMap = new Map();
+            var paramArr = new Array();
+            if (search != ""){
+                search = search.substr(1);
+                if (search != "") {
+
+                    paramArr = search.split("&");
+                    for(var i in paramArr){
+                        var tempArr = paramArr[i].split("=");
+                        paramMap.set(tempArr[0],tempArr[1]);
+                    }
+                    return paramMap.get(key);
+                }
+            }
+            return null;
+        }
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title th:text="${title}" ></title>
 </template>
