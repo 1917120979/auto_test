@@ -5,25 +5,32 @@
 <body>
     <div th:replace="include/navigator::html"></div>
     <script>
-        $(document).ready(function() {
-            $('#dataTables-example').DataTable({
-                responsive: true,
-                "language": {
-                     "paginate": {
-                         "previous": "上一页",
-                         "next":"下一页"
-                     },
-                    "emptyTable": "无数据",
-                    "info": "共计 _TOTAL_ 条 展示其中的 _START_ 到 _END_ 条",
-                    "infoEmpty": "无数据",
-                    "search": "搜索",
-
-               }
+        $(function () {
+            var vue = new Vue({
+                el:'#page-wrapper-p',
+                data:{
+                    uri:'projects',
+                    beans:[]
+                },
+                mounted:function () {
+                    this.list();
+                },
+                methods:{
+                    list:function () {
+                        var url = this.uri;
+                        axios.get(url).then(function (response) {
+                            vue.beans = response.data;
+                        });
+                    }
+                },
+                computed:{
+                    projectNum:function () {
+                        return this.beans.length;
+                    }
+                }
             });
         });
-        $(function () {
-            
-        });
+
     </script>
     <div id="page-wrapper-p">
         <div class="row">
@@ -42,7 +49,7 @@
                                 <i class="fa fa-folder-o fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">26</div>
+                                <div class="huge">{{projectNum}}</div>
                                 <div>项目</div>
                             </div>
                         </div>
@@ -143,37 +150,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                           <!-- <tr class="odd gradeX">
-                                <td>Trident</td>
-                                <td>Internet Explorer 4.0</td>
+                            <tr v-for="bean in beans" class="odd gradeX">
+                                <td>{{bean.name}}</td>
+                                <td>{{bean.description}}</td>
                                 <td>Win 95+</td>
                                 <td class="center">4</td>
                                 <td class="center">X</td>
-                            </tr>-->
-                           <tr class="even gradeC">
-                               <td>Trident</td>
-                               <td>Internet Explorer 5.0</td>
-                               <td>Win 95+</td>
-                               <td class="center">5</td>
-                               <td class="center">C</td>
-                           </tr>
-                           <tr class="odd gradeA">
-                               <td>Trident</td>
-                               <td>Internet Explorer 5.5</td>
-                               <td>Win 95+</td>
-                               <td class="center">5.5</td>
-                               <td class="center">A</td>
-                           </tr>
-                           <tr class="even gradeA">
-                               <td>Trident</td>
-                               <td>Internet Explorer 6</td>
-                               <td>Win 98+</td>
-                               <td class="center">6</td>
-                               <td class="center">A</td>
-                           </tr>
+                            </tr>
                             </tbody>
                         </table>
                         <!-- /.table-responsive -->
+                        <div class="row">
+                            <div>total:</div>
+                            <div>每页展示</div>
+                            <div>翻页</div>
+                        </div>
+
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -183,5 +175,8 @@
         </div>
 
     </div>
+<script>
+
+</script>
 </body>
 </html>
