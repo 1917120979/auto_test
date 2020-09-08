@@ -10,7 +10,8 @@
                 el:'#page-wrapper-p',
                 data:{
                     uri:'projects',
-                    beans:[]
+                    beans:[],
+                    table:null
                 },
                 mounted:function () {
                     this.list();
@@ -30,11 +31,7 @@
                 },
                 watch:{
                     beans:function () {
-                        var data = eval("("+vue.beans+")");
-                        var dataTable = $('#dataTables-project').DataTable({
-                            data:data
-                        });
-                        dataTable.draw();
+
                     }
                 }
             });
