@@ -12,6 +12,11 @@ public class PageController {
 
     @GetMapping("/index")
     public String index(){
-        return "index";
+        return "pages/index";
+    }
+
+    @GetMapping("/project_list")
+    public String projectList(){
+        return "pages/project_list";
     }
 }

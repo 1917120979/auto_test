@@ -18,4 +18,7 @@ public class ProjectService {
         return projectDAO.findAll(sort);
     }
 
+    public String count(){
+        return String.valueOf(projectDAO.count());
+    }
 }
